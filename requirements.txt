@@ -1,0 +1,19 @@
+# CPU-only PyTorch first (much smaller than the default CUDA build):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+spacy
+scikit-learn
+pypdf
+wordfreq
+sentence-transformers
+streamlit
+fastapi
+uvicorn
+python-multipart
+pandas
+matplotlib
+notebook
+ipykernel
+# then: python -m spacy download en_core_web_sm
+pytesseract
+pypdfium2
+# OCR for scanned PDFs also needs the system package:  sudo apt install tesseract-ocr

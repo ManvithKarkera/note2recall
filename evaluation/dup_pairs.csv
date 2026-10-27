@@ -1,0 +1,21 @@
+a,b,duplicate
+"Subnetting is the procedure to divide the network into sub-networks.","Subnetting divides a large network into smaller subnets.",1
+"Supernetting is the procedure of combining small networks.","Supernetting enables the consolidation of several smaller networks into a larger one.",1
+"RARP is a protocol used by a client machine to request its IP address from a server.","Reverse ARP lets a client machine in a LAN ask the gateway for its IP address.",1
+"IPv4 is a connectionless protocol used in packet-switched networks.","IPv4 is a connectionless protocol for packet-switched layer networks such as Ethernet.",1
+"Hubs operate at the physical layer of the OSI model.","A hub is a physical layer device in the OSI model.",1
+"Repeaters regenerate a signal so it can travel a longer distance.","A repeater boosts the signal to extend the transmission range.",1
+"The physical layer deals with cables, connectors, voltages and signals.","The physical layer handles the hardware: cables, connectors and electrical signals.",1
+"Smoothing gives unseen n-grams a small non-zero probability.","Techniques that assign some probability to word sequences never seen in training.",1
+"Tokenization splits raw text into smaller units called tokens.","Splitting text into words or subwords is called tokenization.",1
+"Perplexity measures how well a language model predicts a held-out test set.","A lower perplexity means the model assigns higher probability to the test data.",0
+"TCP provides reliable, connection-oriented communication.","UDP provides fast, connectionless, low-overhead delivery.",0
+"Subnetting divides a network into smaller networks.","Supernetting combines several small networks into one larger network.",0
+"ARP finds the MAC address of a device from its IP address.","RARP finds the IP address of a device from its MAC address.",0
+"Hubs operate at the physical layer of the OSI model.","Routers operate at the network layer of the OSI model.",0
+"IPv4 has a 32-bit address length.","IPv6 has a 128-bit address length.",0
+"Stemming chops the ends of words using crude heuristics.","Lemmatization returns the dictionary form of a word using morphological analysis.",0
+"The bus topology connects all devices to a single cable.","In a ring topology each computer is connected to the next one.",0
+"Word2Vec learns word embeddings by predicting words from their context.","TF-IDF multiplies term frequency by inverse document frequency.",0
+"Flooding sends every incoming packet out on every outgoing line.","The leaky bucket algorithm smooths bursty traffic into a steady flow.",0
+"Class C addresses have their first three bits set to 110.","Class B addresses have their first two bits set to 10.",0

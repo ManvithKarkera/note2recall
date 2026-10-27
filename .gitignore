@@ -1,0 +1,22 @@
+# environments and dependencies
+.venv/
+frontend/node_modules/
+
+# build output (rebuild with: cd frontend && npm run build)
+frontend/dist/
+
+# caches
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# earlier course notebooks, not part of this project
+1stLec.ipynb
+N-gram.ipynb
+
+# your own ratings file is created by the notebook; commit it once you have filled it in
+evaluation/ratings_human.csv
+
+# local tool caches
+.impeccable/
+frontend/.impeccable/

@@ -1,0 +1,25 @@
+Lecture 3: Language Models and Text Representation
+
+Introduction
+Natural language processing is a field of artificial intelligence that enables computers to understand, interpret and generate human language. Most NLP systems begin with a preprocessing stage that converts raw text into a clean, consistent form.
+
+Preprocessing
+Tokenization is the process of splitting raw text into smaller units called tokens, such as words or subwords. Stop words are very common words such as "the", "is" and "and" that carry little meaning and are often removed before analysis. Stemming is a crude heuristic that chops the ends of words to reduce them to a common root, so that "running" becomes "run". Lemmatization is a more principled technique that uses vocabulary and morphological analysis to return the dictionary form of a word, called the lemma. Unlike stemming, lemmatization maps "better" to "good" because it considers the part of speech.
+
+N-gram Language Models
+A language model is a probability distribution over sequences of words. An n-gram is a contiguous sequence of n items from a given text, such as a bigram of two words or a trigram of three words. The Markov assumption states that the probability of a word depends only on a fixed number of previous words rather than on the entire history. Under the bigram model, the probability of a word is estimated from the count of the word pair divided by the count of the preceding word. This estimate is called maximum likelihood estimation because it chooses the parameters that make the training data most probable.
+
+A major problem with n-gram models is data sparsity: many valid word sequences never appear in the training corpus and therefore receive zero probability. Smoothing refers to techniques that redistribute probability mass so that unseen n-grams receive a small non-zero probability. Laplace smoothing adds one to every n-gram count before normalizing, which is simple but often moves too much probability to unseen events. Backoff is a strategy that uses a lower-order n-gram when the higher-order n-gram has no observations.
+
+Perplexity is the standard intrinsic evaluation metric for language models and measures how well a model predicts a held-out test set. A lower perplexity indicates that the model assigns higher probability to the test data and is therefore a better model. Perplexity can be interpreted as the weighted average branching factor of the language.
+
+Text Representation
+The bag-of-words model represents a document as the multiset of its words, ignoring grammar and word order. Term frequency counts how often a term appears in a document. Inverse document frequency measures how rare a term is across the whole collection, giving lower weight to words that appear in many documents. TF-IDF is a weighting scheme that multiplies term frequency by inverse document frequency to highlight words that are frequent in a document but rare in the corpus. Cosine similarity measures the angle between two document vectors and is widely used to compare documents represented with TF-IDF.
+
+Word embeddings are dense vector representations of words learned from large corpora, in which semantically similar words have similar vectors. Word2Vec is a neural model introduced by Tomas Mikolov at Google in 2013 that learns word embeddings by predicting words from their context. The skip-gram architecture predicts the surrounding context words given a centre word, while the continuous bag-of-words architecture predicts the centre word from its context. The distributional hypothesis states that words occurring in similar contexts tend to have similar meanings, and it is the theoretical basis for word embeddings.
+
+Named Entity Recognition
+Named entity recognition is the task of locating and classifying named entities in text into categories such as person, organization, location and date. Modern NER systems are usually trained as sequence labelling models using the BIO tagging scheme. In the BIO scheme, B marks the beginning of an entity, I marks a token inside an entity, and O marks a token outside any entity.
+
+Summary
+Tokenization, stop word removal and lemmatization prepare text for analysis. N-gram models estimate word probabilities using the Markov assumption and require smoothing to handle unseen sequences. TF-IDF and word embeddings are two different ways of representing text as vectors.
