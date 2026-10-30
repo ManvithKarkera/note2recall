@@ -63,6 +63,11 @@ For scanned PDFs, also install Tesseract: `sudo apt install tesseract-ocr`.
 
 While editing the frontend, run `npm run dev` in `frontend/` (→ http://localhost:5173) alongside the API server.
 
+## Deploy
+
+- **Backend:** `render.yaml` deploys the API from the `Dockerfile` to Render's free tier. The image is lite by default: it has OCR but uses TF-IDF for duplicate detection, so it fits in 512 MB of RAM. Build with `--build-arg EMBEDDINGS=1` for sentence embeddings (needs about 1.5 GB). Allowed frontend origins are set with `ALLOWED_ORIGINS` (comma-separated) or `ALLOWED_ORIGIN_REGEX`.
+- **Frontend:** deploy `frontend/` to Vercel, with `VITE_API_URL` set to the backend URL.
+
 ## Limitations
 
 - Questions come from templates, so about 12% of cards from slide decks are weak, mostly fill-in-the-blank cards built from slide fragments.

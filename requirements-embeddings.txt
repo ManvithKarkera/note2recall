@@ -1,0 +1,3 @@
+# Optional: embedding-based duplicate detection (needs ~1.5 GB RAM).
+# Without it the pipeline falls back to TF-IDF similarity.
+sentence-transformers==6.2.0

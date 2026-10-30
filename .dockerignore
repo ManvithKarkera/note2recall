@@ -1,0 +1,6 @@
+*
+!requirements-api.txt
+!requirements-embeddings.txt
+!smartnotes/
+!api.py
+**/__pycache__

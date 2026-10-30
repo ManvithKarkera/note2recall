@@ -4,6 +4,7 @@ Run with:  .venv/bin/uvicorn api:app --port 8000
 Then open http://localhost:8000 (serves the built React app from frontend/dist).
 """
 
+import os
 from pathlib import Path
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
@@ -16,8 +17,12 @@ from smartnotes.pipeline import build_deck, deck_to_dict, get_embedder, get_nlp,
 MAX_BYTES = 50 * 1024 * 1024
 
 app = FastAPI(title="note2recall")
-# Vite dev server runs on :5173 and calls the API on :8000
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+# Vite dev server runs on :5173 and calls the API on :8000.
+# In production, ALLOWED_ORIGINS lists the deployed frontend(s), comma-separated.
+origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+origins += [o.strip() for o in os.environ.get("ALLOWED_ORIGINS", "").split(",") if o.strip()]
+app.add_middleware(CORSMiddleware, allow_origins=origins,
+                   allow_origin_regex=os.environ.get("ALLOWED_ORIGIN_REGEX"),
                    allow_methods=["*"], allow_headers=["*"])
 
 

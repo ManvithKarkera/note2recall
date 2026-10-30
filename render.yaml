@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: note2recall-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: ALLOWED_ORIGIN_REGEX
+        value: https://note2recall(-[a-z0-9-]+)?\.vercel\.app
