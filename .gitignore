@@ -17,6 +17,7 @@ N-gram.ipynb
 # your own ratings file is created by the notebook; commit it once you have filled it in
 evaluation/ratings_human.csv
 
-# local tool caches
-.impeccable/
-frontend/.impeccable/
+
+# Vercel CLI
+.vercel
+.env*.local

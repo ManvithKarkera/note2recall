@@ -19,10 +19,9 @@ NLP mini-project. The pipeline is traditional NLP and runs entirely locally: no 
 
 Tested on clean notes and two real Computer Networks lecture slide decks (78 and 118 pages):
 
-- **100%** of answers are found in their source sentence.
-- **68–96%** of the top 25 key concepts are covered by a 20-card deck.
-- Duplicate detection on 20 labelled pairs: embeddings reach **F1 0.80**, TF-IDF reaches F1 0.56.
-- Card quality, 1–3 scale: definition cards average **3.0**, cloze cards **2.36**. These ratings were made by an AI rater, not a human; see `evaluation/`.
+- 100% of answers are found in their source sentence.
+- 68–96% of the top 25 key concepts are covered by a 20-card deck.
+- Duplicate detection on 20 labelled pairs: embeddings reach F1 0.80, TF-IDF reaches F1 0.56.
 
 The full evaluation is in `SmartNotes.ipynb`, section 7.
 
