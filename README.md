@@ -4,6 +4,33 @@ Upload study notes (PDF or text) and get flashcards for active recall. Every car
 
 NLP mini-project. The pipeline is traditional NLP and runs entirely locally: no LLM or API calls.
 
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/upload.png" alt="Upload page with sliders for number of cards and duplicate threshold"></td>
+    <td width="50%"><img src="docs/screenshots/loading.png" alt="Loading screen listing the pipeline steps"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Upload</b>: drop a PDF or TXT, choose the deck size</td>
+    <td align="center"><b>Processing</b>: the NLP pipeline runs on the server</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/review-front.png" alt="Flashcard front with a fill-in-the-blank question"></td>
+    <td><img src="docs/screenshots/review-back.png" alt="Flashcard back showing the answer and its source sentence from page 62"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Review</b>: question on the front</td>
+    <td align="center"><b>Answer</b>: highlighted in the source sentence, with its page</td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="docs/screenshots/quiz.png" alt="Multiple-choice quiz built from the deck"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><b>Quiz</b>: multiple choice, with answers from the other cards as wrong options</td>
+  </tr>
+</table>
+
 ## Architecture
 
 ![note2recall system architecture](docs/architecture.png)
