@@ -4,6 +4,12 @@ Upload study notes (PDF or text) and get flashcards for active recall. Every car
 
 NLP mini-project. The pipeline is traditional NLP and runs entirely locally: no LLM or API calls.
 
+## Architecture
+
+![note2recall system architecture](docs/architecture.png)
+
+The React app sends the uploaded file to a FastAPI backend, which runs the NLP pipeline and returns the whole deck as JSON. There is no database: the browser keeps the last deck and review progress in `localStorage`. Step-by-step pipeline diagram: [docs/architecture.md](docs/architecture.md).
+
 ## How it works
 
 | Step | Technique |
@@ -34,6 +40,7 @@ api.py                   FastAPI server for the React frontend
 frontend/                React + Vite frontend
 app.py                   alternative Streamlit frontend
 evaluation/              labelled duplicate pairs, generated decks, ratings
+docs/                    architecture diagrams
 sample_notes.pdf / .txt  sample lecture notes for testing
 ```
 
