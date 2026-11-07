@@ -1,7 +1,7 @@
 """note2recall NLP pipeline: study notes -> grounded flashcards.
 
 Steps
-1. Ingestion + preprocessing   (pypdf, regex cleanup, spaCy sentence split)
+1. Ingestion + preprocessing   (pypdfium2/pypdf, OCR, regex cleanup, spaCy sentence split)
 2. Keyword extraction          (TF-IDF over sentences, restricted to noun phrases)
 3. Sentence ranking            (TF-IDF weight + keyword density)
 4. Question generation         (definition templates, cloze deletion fallback)
@@ -84,13 +84,29 @@ def extract_pages(file) -> list[tuple[int, str]]:
     if str(name).lower().endswith(".txt") or not data.startswith(b"%PDF"):
         return [(1, data.decode("utf-8", errors="ignore"))]
 
-    reader = PdfReader(io.BytesIO(data))
-    pages = [(i + 1, page.extract_text() or "") for i, page in enumerate(reader.pages)]
+    pages = _pdf_text(data)
     empty = [i for i, (_, t) in enumerate(pages) if len(t.strip()) < 20]
     if empty and ocr_available():          # scanned pages have no text layer
         for i, text in zip(empty, _ocr_pages(data, empty)):
             pages[i] = (i + 1, text)
     return pages
+
+
+def _pdf_text(data: bytes) -> list[tuple[int, str]]:
+    """Text layer of every page.
+
+    pdfium is tried first: PDFs printed from a browser or Google Slides place each glyph
+    separately, and pypdf then returns "A u t o e n c o d e r" with a space between every
+    letter, which breaks sentence splitting. pdfium joins the glyphs correctly.
+    """
+    try:
+        import pypdfium2 as pdfium
+        pdf = pdfium.PdfDocument(data)
+        return [(i + 1, (pdf[i].get_textpage().get_text_bounded() or "").replace("\r\n", "\n"))
+                for i in range(len(pdf))]
+    except Exception:
+        reader = PdfReader(io.BytesIO(data))
+        return [(i + 1, page.extract_text() or "") for i, page in enumerate(reader.pages)]
 
 
 def ocr_available() -> bool:
@@ -107,7 +123,31 @@ def _ocr_pages(pdf_bytes: bytes, indices: list[int]) -> list[str]:
     import pypdfium2 as pdfium
     import pytesseract
     pdf = pdfium.PdfDocument(pdf_bytes)
-    return [pytesseract.image_to_string(pdf[i].render(scale=300 / 72).to_pil()) for i in indices]
+    return [_drop_ocr_noise(pytesseract.image_to_string(pdf[i].render(scale=300 / 72).to_pil()))
+            for i in indices]
+
+
+_SHORT_WORDS = {"a", "an", "as", "at", "be", "by", "do", "if", "in", "is", "it", "no", "of", "on",
+                "or", "so", "to", "up", "we", "ai", "ml", "x", "y", "z"}
+
+
+def _drop_ocr_noise(text: str, min_good=0.8) -> str:
+    """Keep only OCR lines made mostly of real words.
+
+    OCR on diagrams and photos returns fragments like "pine oS o 2 OO ty" or "'; \\ YK AY".
+    A token is good if it is a word of 3+ letters or a common short word.
+    """
+    kept = []
+    for line in text.splitlines():
+        toks = line.split()
+        if not toks:
+            continue
+        good = sum(1 for t in toks
+                   if re.fullmatch(r"[A-Za-z][A-Za-z\-']{2,}[.,;:?!)]*", t.strip("(\"'"))
+                   or t.strip(".,;:()").lower() in _SHORT_WORDS)
+        if good / len(toks) >= min_good:
+            kept.append(line)
+    return "\n".join(kept)
 
 
 _BULLET = re.compile(r"^([•▪●◦○■□➢➤▶►✓✔\-\*–]|\d{1,2}[.)])\s*")
